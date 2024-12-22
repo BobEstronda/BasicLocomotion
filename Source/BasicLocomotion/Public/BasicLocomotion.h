@@ -5,7 +5,7 @@
 #include "CoreMinimal.h"
 #include "Modules/ModuleManager.h"
 
-class FBasicLocomotionParametersModule : public IModuleInterface
+class FBasicLocomotionModule : public IModuleInterface
 {
 public:
 

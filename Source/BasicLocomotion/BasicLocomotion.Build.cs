@@ -2,9 +2,9 @@
 
 using UnrealBuildTool;
 
-public class BasicLocomotionParameters : ModuleRules
+public class BasicLocomotion : ModuleRules
 {
-	public BasicLocomotionParameters(ReadOnlyTargetRules Target) : base(Target)
+	public BasicLocomotion(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		

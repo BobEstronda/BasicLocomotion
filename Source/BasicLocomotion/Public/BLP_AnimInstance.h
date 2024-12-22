@@ -11,7 +11,7 @@
  * 
  */
 UCLASS()
-class BASICLOCOMOTIONPARAMETERS_API UBLP_AnimInstance : public UAnimInstance
+class BASICLOCOMOTION_API UBLP_AnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
 
