@@ -22,7 +22,7 @@ void UBL_AnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 
 	if (!Character || !MovementComponent) return;
 
-	Velocity = Character->GetVelocity();
+	const FVector& Velocity = Character->GetVelocity();
 	GroundSpeed = Velocity.Size2D();
 	bInGroundMovement = GroundSpeed > 0.f;
 

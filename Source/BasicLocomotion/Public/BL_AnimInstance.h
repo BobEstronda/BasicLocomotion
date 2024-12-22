@@ -6,6 +6,7 @@
 #include "Animation/AnimInstance.h"
 #include "BL_AnimInstance.generated.h"
 
+class ACharacter;
 class UCharacterMovementComponent;
 
 /**
@@ -22,9 +23,6 @@ protected:
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = "Locomotion|Reference")
 	UCharacterMovementComponent* MovementComponent;
-	
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = "Locomotion|State|Ground")
-	FVector Velocity;
 	
 	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = "Locomotion|State|Ground")
 	float GroundSpeed;
@@ -60,9 +58,6 @@ public:
 	FORCEINLINE UCharacterMovementComponent* GetMovementComponent() const {return MovementComponent; }
 
 	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
-	FORCEINLINE FVector GetVelocity() const {return Velocity; }
-
-	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
 	FORCEINLINE float GetGroundSpeed() const {return GroundSpeed; }
 
 	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
@@ -70,4 +65,7 @@ public:
 
 	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
 	FORCEINLINE bool GetStanding() const {return !bIsCrouching; }
+
+	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
+	FORCEINLINE bool GetInGround() const { return !bIsInAir; }
 };
