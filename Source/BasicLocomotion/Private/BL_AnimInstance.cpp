@@ -24,11 +24,12 @@ void UBL_AnimInstance::NativeThreadSafeUpdateAnimation(float DeltaSeconds)
 
 	Velocity = Character->GetVelocity();
 	GroundSpeed = Velocity.Size2D();
+	bInGroundMovement = GroundSpeed > 0.f;
 
 	bIsInAir = MovementComponent->IsFalling();
 	const float& ZVelocity = Velocity.Z;
 	bInAirUp = ZVelocity > 0.f && bIsInAir;
 	bInAirDown = ZVelocity < 0.f && bIsInAir;
-
+	
 	bIsCrouching = MovementComponent->IsCrouching() && !bIsInAir;
 }

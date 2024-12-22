@@ -15,34 +15,36 @@ UCLASS()
 class BASICLOCOMOTION_API UBL_AnimInstance : public UAnimInstance
 {
 	GENERATED_BODY()
-	
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|Reference")
-	ACharacter* Character;
-	
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|Reference")
-	UCharacterMovementComponent* MovementComponent;
-
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|State|Ground")
-	FVector Velocity;
-	
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|State|Ground")
-	float GroundSpeed;
-
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|State|InAir")
-	bool bIsInAir = false;
-
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|State|InAir")
-	bool bInAirUp = false;
-
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|State|InAir")
-	bool bInAirDown = false;
-
-	UPROPERTY(VisibleDefaultsOnly, Category = "Locomotion|State|Ground")
-	bool bIsCrouching = false;
 
 protected:
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = "Locomotion|Reference")
+	ACharacter* Character;
 	
-	UPROPERTY(VisibleDefaultsOnly, BlueprintReadWrite,Category = "Locomotion|State|InAir")
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = "Locomotion|Reference")
+	UCharacterMovementComponent* MovementComponent;
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = "Locomotion|State|Ground")
+	FVector Velocity;
+	
+	UPROPERTY(VisibleDefaultsOnly, BlueprintReadOnly,Category = "Locomotion|State|Ground")
+	float GroundSpeed;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "Locomotion|State|Ground")
+	bool bInGroundMovement = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "Locomotion|State|InAir")
+	bool bIsInAir = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "Locomotion|State|InAir")
+	bool bInAirUp = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "Locomotion|State|InAir")
+	bool bInAirDown = false;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly,Category = "Locomotion|State|Ground")
+	bool bIsCrouching = false;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite,Category = "Locomotion|State|InAir")
 	bool bIsJumping = false;
 	
 public:
@@ -51,27 +53,21 @@ public:
 	
 	virtual void NativeThreadSafeUpdateAnimation(float DeltaSeconds) override;
 
-	UFUNCTION(BlueprintCallable,BlueprintPure)
+	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|Reference")
 	FORCEINLINE ACharacter* GetCharacter() const {return Character; }
 
-	UFUNCTION(BlueprintCallable,BlueprintPure)
+	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|Reference")
 	FORCEINLINE UCharacterMovementComponent* GetMovementComponent() const {return MovementComponent; }
 
-	UFUNCTION(BlueprintCallable,BlueprintPure)
+	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
 	FORCEINLINE FVector GetVelocity() const {return Velocity; }
 
-	UFUNCTION(BlueprintCallable,BlueprintPure)
+	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
 	FORCEINLINE float GetGroundSpeed() const {return GroundSpeed; }
 
-	UFUNCTION(BlueprintCallable,BlueprintPure)
-	FORCEINLINE bool GetIsInAir() const {return bIsInAir; }
+	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
+	FORCEINLINE bool GetInIdle() const {return !bInGroundMovement; }
 
-	UFUNCTION(BlueprintCallable,BlueprintPure)
-	FORCEINLINE bool GetInAirUp() const {return bInAirUp; }
-
-	UFUNCTION(BlueprintCallable,BlueprintPure)
-	FORCEINLINE bool GetInAirDown() const {return bInAirDown; }
-
-	UFUNCTION(BlueprintCallable,BlueprintPure)
-	FORCEINLINE bool GetIsCrouching() const {return bIsCrouching; }
+	UFUNCTION(BlueprintCallable,BlueprintPure, meta = (BlueprintThreadSafe), Category = "Locomotion|State|Ground")
+	FORCEINLINE bool GetStanding() const {return !bIsCrouching; }
 };
